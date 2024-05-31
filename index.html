@@ -83,16 +83,16 @@
 
 <div class="container">
     <div class="column left">
-        <div class="droppable" id="step5" onclick="handleDrop('step5')">Bounce Knees up (2x links, 2x rechts)</div>
-        <div class="droppable" id="step6" onclick="handleDrop('step6')">Reebok (1x links, 1x rechts)</div>
-        <div class="droppable" id="step7" onclick="handleDrop('step7')">Monestary (2x links, 2x rechts)</div>
-        <div class="droppable" id="step8" onclick="handleDrop('step8')">Spongebob Move (1x links, 1x rechts)</div>
+        <div class="droppable" id="step5">Bounce Knees up (2x links, 2x rechts)</div>
+        <div class="droppable" id="step6">Reebok (1x links, 1x rechts)</div>
+        <div class="droppable" id="step7">Monestary (2x links, 2x rechts)</div>
+        <div class="droppable" id="step8">Spongebob Move (1x links, 1x rechts)</div>
     </div>
     <div class="column right">
-        <div class="draggable" id="desc5" onclick="handleDrag('desc5')">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
-        <div class="draggable" id="desc6" onclick="handleDrag('desc6')">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
-        <div class="draggable" id="desc7" onclick="handleDrag('desc7')">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
-        <div class="draggable" id="desc8" onclick="handleDrag('desc8')">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
+        <div class="draggable" id="desc5" onclick="handleClick('desc5')">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
+        <div class="draggable" id="desc6" onclick="handleClick('desc6')">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
+        <div class="draggable" id="desc7" onclick="handleClick('desc7')">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
+        <div class="draggable" id="desc8" onclick="handleClick('desc8')">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
     </div>
 </div>
 
@@ -109,24 +109,23 @@
 </div>
 
 <script>
-    let currentDraggable = null;
+    let currentDescription = null;
 
-    function handleDrag(id) {
-        currentDraggable = id;
+    function handleClick(descId) {
+        currentDescription = descId;
     }
 
-    function handleDrop(stepId) {
-        if (currentDraggable !== null) {
-            const draggable = document.getElementById(currentDraggable);
-            const step = document.getElementById(stepId);
-            step.appendChild(draggable);
-            checkCorrectness();
-            currentDraggable = null;
-        }
-    }
+    document.querySelectorAll('.droppable').forEach(item => {
+        item.addEventListener('click', event => {
+            if (currentDescription !== null) {
+                const description = document.getElementById(currentDescription);
+                item.appendChild(description);
+                checkCorrectness();
+                currentDescription = null;
+            }
+        });
+    });
 
-    function checkCorrectness() {
-        const correct
     function checkCorrectness() {
         const correctMappings = {
             step5: 'desc5',
@@ -155,3 +154,4 @@
 
 </body>
 </html>
+

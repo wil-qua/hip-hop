@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hip Hop Tanzschritte Rätsel</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
         .container {
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-around;
             align-items: flex-start;
             max-width: 800px;
@@ -19,78 +21,58 @@
             border-radius: 8px;
             padding: 10px;
             margin: 10px;
-            width: calc(50% - 20px);
+            width: 45%;
             cursor: pointer;
         }
-        .correct {
-            color: green;
-        }
-        .incorrect {
-            color: red;
+        .connected {
+            background-color: lightgreen;
         }
     </style>
 </head>
 <body>
     <h1>Hip Hop Tanzschritte Rätsel</h1>
     <div class="container">
-        <div id="Bounce" class="tanzschritt">Bounce Knees up (2x links, 2x rechts)</div>
-        <div id="Reebok" class="tanzschritt">Reebok (1x links, 1x rechts)</div>
-        <div id="Monestary" class="tanzschritt">Monestary (2x links, 2x rechts)</div>
-        <div id="Spongebob" class="tanzschritt">Spongebob Move (1x links, 1x rechts)</div>
-        <div id="Alf" class="tanzschritt">Alf (1x links, 1x rechts)</div>
-        <div id="BounceDesc" class="beschreibung" data-correct-tanzschritt="Bounce">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
-        <div id="ReebokDesc" class="beschreibung" data-correct-tanzschritt="Reebok">Ein Schritt, bei dem mit beiden Beinen geschlossen zu einer Seite gesprungen wird. Der entgegengesetzte Arm haut ebenfalls in die Richtung. Das gleiche dann zur anderen Seite und dann doppelt in die erste Richtung. Erst dann ist der Move beendet.</div>
-        <div id="MonestaryDesc" class="beschreibung" data-correct-tanzschritt="Monestary">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
-        <div id="SpongebobDesc" class="beschreibung" data-correct-tanzschritt="Spongebob">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
-        <div id="AlfDesc" class="beschreibung" data-correct-tanzschritt="Alf">Ein Schritt, bei dem die Beine geschlossen und gebeugt sind. Nun wird ein Bein nach außen angewinkelt und das andere gestreckt. Die Arme sind auch zunächst gebeugt und strecken sich dann nach unten in die Richtung, in die das angewinkelte Bein zeigt. Wichtig ist, dass die Füße den Boden nicht verlassen.</div>
+        <div id="Bounce" class="tanzschritt" draggable="true">Bounce Knees up (2x links, 2x rechts)</div>
+        <div id="Reebok" class="tanzschritt" draggable="true">Reebok (1x links, 1x rechts)</div>
+        <div id="Monestary" class="tanzschritt" draggable="true">Monestary (2x links, 2x rechts)</div>
+        <div id="Spongebob" class="tanzschritt" draggable="true">Spongebob Move (1x links, 1x rechts)</div>
+        <div id="Alf" class="tanzschritt" draggable="true">Alf (1x links, 1x rechts)</div>
+    </div>
+    <div class="container">
+        <div id="BounceDesc" class="beschreibung droppable">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
+        <div id="ReebokDesc" class="beschreibung droppable">Ein Schritt, bei dem mit beiden Beinen geschlossen zu einer Seite gesprungen wird. Der entgegengesetzte Arm haut ebenfalls in die Richtung. Das gleiche dann zur anderen Seite und dann doppelt in die erste Richtung. Erst dann ist der Move beendet.</div>
+        <div id="MonestaryDesc" class="beschreibung droppable">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
+        <div id="SpongebobDesc" class="beschreibung droppable">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
+        <div id="AlfDesc" class="beschreibung droppable">Ein Schritt, bei dem die Beine geschlossen und gebeugt sind. Nun wird ein Bein nach außen angewinkelt und das andere gestreckt. Die Arme sind auch zunächst gebeugt und strecken sich dann nach unten in die Richtung, in die das angewinkelte Bein zeigt. Wichtig ist, dass die Füße den Boden nicht verlassen.</div>
     </div>
 
     <script>
-        var beschreibungen = document.querySelectorAll('.beschreibung');
-        var tanzschritte = document.querySelectorAll('.tanzschritt');
+        var draggables = document.querySelectorAll('.tanzschritt');
+        var droppables = document.querySelectorAll('.droppable');
 
-        beschreibungen.forEach(function(beschreibung) {
-            beschreibung.addEventListener('click', function() {
-                var selectedBeschreibung = this;
-                if (selectedBeschreibung.classList.contains('correct')) return;
-
-                var currentTanzschritt = selectedBeschreibung.parentNode.querySelector('.tanzschritt');
-                var currentTanzschrittId = currentTanzschritt.id;
-                var correctTanzschrittId = selectedBeschreibung.getAttribute('data-correct-tanzschritt');
-
-                if (currentTanzschrittId === correctTanzschrittId) {
-                    selectedBeschreibung.classList.add('correct');
-                    checkCompletion();
-                } else {
-                    selectedBeschreibung.classList.add('incorrect');
-                    setTimeout(function() {
-                        selectedBeschreibung.classList.remove('incorrect');
-                    }, 1000);
-                }
+        draggables.forEach(function(draggable) {
+            draggable.addEventListener('dragstart', function(event) {
+                event.dataTransfer.setData('text/plain', event.target.id);
             });
         });
 
-        tanzschritte.forEach(function(tanzschritt) {
-            tanzschritt.addEventListener('click', function() {
-                var currentTanzschritt = this;
-                var currentTanzschrittId = currentTanzschritt.id;
-                var beschreibung = currentTanzschritt.parentNode.querySelector('[data-correct-tanzschritt="' + currentTanzschrittId + '"]');
-                var parent = beschreibung.parentNode;
+        droppables.forEach(function(droppable) {
+            droppable.addEventListener('dragover', function(event) {
+                event.preventDefault();
+            });
 
-                if (!parent.classList.contains('container')) {
-                    parent.removeChild(beschreibung);
-                    currentTanzschritt.appendChild(beschreibung);
-                    beschreibung.classList.remove('correct');
+            droppable.addEventListener('drop', function(event) {
+                event.preventDefault();
+                var data = event.dataTransfer.getData('text');
+                var draggableElement = document.getElementById(data);
+                var droppableElement = this;
+
+                if (!draggableElement.classList.contains('connected') && droppableElement.children.length === 0) {
+                    droppableElement.appendChild(draggableElement);
+                    draggableElement.classList.add('connected');
                 }
             });
         });
-
-        function checkCompletion() {
-            var correctBeschreibungen = document.querySelectorAll('.correct');
-            if (correctBeschreibungen.length === beschreibungen.length) {
-                alert('Geschafft!');
-            }
-        }
     </script>
 </body>
 </html>

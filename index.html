@@ -89,8 +89,24 @@
 
         draggable.addEventListener('touchmove', (e) => {
             const touchLocation = e.targetTouches[0];
-            draggable.style.left = `${touchLocation.pageX}px`;
-            draggable.style.top = `${touchLocation.pageY}px`;
+            draggable.style.position = 'absolute';
+            draggable.style.left = `${touchLocation.pageX - draggable.offsetWidth / 2}px`;
+            draggable.style.top = `${touchLocation.pageY - draggable.offsetHeight / 2}px`;
+
+            // Detect droppable
+            droppables.forEach(droppable => {
+                const droppableRect = droppable.getBoundingClientRect();
+                if (
+                    touchLocation.pageX > droppableRect.left &&
+                    touchLocation.pageX < droppableRect.right &&
+                    touchLocation.pageY > droppableRect.top &&
+                    touchLocation.pageY < droppableRect.bottom
+                ) {
+                    droppable.classList.add('droppable-hover');
+                } else {
+                    droppable.classList.remove('droppable-hover');
+                }
+            });
         });
     });
 
@@ -113,7 +129,13 @@
 
         droppable.addEventListener('touchend', (e) => {
             const dragging = document.querySelector('.dragging');
-            droppable.appendChild(dragging);
+            if (droppable.classList.contains('droppable-hover')) {
+                droppable.appendChild(dragging);
+                droppable.classList.remove('droppable-hover');
+                dragging.style.position = 'static';
+                dragging.style.left = 'auto';
+                dragging.style.top = 'auto';
+            }
         });
     });
 </script>

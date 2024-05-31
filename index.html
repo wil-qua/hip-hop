@@ -36,6 +36,7 @@
             background-color: #e0e0e0;
             border-radius: 4px;
             cursor: grab;
+            touch-action: none; /* Prevent default touch actions */
         }
         .droppable {
             min-height: 30px;
@@ -67,6 +68,7 @@
     const droppables = document.querySelectorAll('.droppable');
 
     draggables.forEach(draggable => {
+        // Mouse events
         draggable.addEventListener('dragstart', () => {
             draggable.classList.add('dragging');
         });
@@ -74,11 +76,42 @@
         draggable.addEventListener('dragend', () => {
             draggable.classList.remove('dragging');
         });
+
+        // Touch events
+        draggable.addEventListener('touchstart', (e) => {
+            draggable.classList.add('dragging');
+            e.preventDefault();
+        });
+
+        draggable.addEventListener('touchend', () => {
+            draggable.classList.remove('dragging');
+        });
+
+        draggable.addEventListener('touchmove', (e) => {
+            const touchLocation = e.targetTouches[0];
+            draggable.style.left = `${touchLocation.pageX}px`;
+            draggable.style.top = `${touchLocation.pageY}px`;
+        });
     });
 
     droppables.forEach(droppable => {
+        // Mouse events
         droppable.addEventListener('dragover', (e) => {
             e.preventDefault();
+            const dragging = document.querySelector('.dragging');
+            droppable.appendChild(dragging);
+        });
+
+        // Touch events
+        droppable.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+        });
+
+        droppable.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+        });
+
+        droppable.addEventListener('touchend', (e) => {
             const dragging = document.querySelector('.dragging');
             droppable.appendChild(dragging);
         });

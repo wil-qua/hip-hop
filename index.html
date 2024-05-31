@@ -10,7 +10,8 @@
         }
         .container {
             display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap;
+            justify-content: space-around;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
@@ -20,7 +21,7 @@
             border-radius: 8px;
             padding: 10px;
             margin: 10px;
-            width: 45%;
+            width: calc(50% - 20px);
             cursor: pointer;
         }
         .connected {
@@ -75,6 +76,29 @@
                     }
                 }
             });
+
+            droppable.addEventListener('dragenter', function(event) {
+                event.preventDefault();
+                var draggableElement = document.getElementById(event.dataTransfer.getData('text'));
+                var droppableElement = this;
+                if (droppableElement.dataset.correctTanzschritt !== draggableElement.id) {
+                    droppableElement.classList.add('highlight');
+                }
+            });
+
+            droppable.addEventListener('dragleave', function(event) {
+                var droppableElement = this;
+                droppableElement.classList.remove('highlight');
+            });
+        });
+
+        document.addEventListener('dragend', function(event) {
+            var draggableElement = document.getElementById(event.dataTransfer.getData('text'));
+            var parentElement = draggableElement.parentNode;
+            if (parentElement.classList.contains('beschreibung-container')) {
+                document.getElementById('Tanzschritte').appendChild(draggableElement);
+                draggableElement.classList.remove('connected');
+            }
         });
     </script>
 </body>

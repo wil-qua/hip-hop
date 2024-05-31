@@ -61,8 +61,17 @@
         element.classList.add('selected');
 
         if (selectedTanzschritt !== null && selectedBeschreibung !== null) {
-            // Hier kannst du die Zuordnung durchführen
-            console.log(selectedTanzschritt.textContent.trim() + ' -> ' + selectedBeschreibung.textContent.trim());
+            // Hier wird die Zuordnung durchgeführt
+            var tanzschrittText = selectedTanzschritt.textContent.trim();
+            var beschreibungText = selectedBeschreibung.textContent.trim();
+            var tanzschrittNummer = tanzschrittText.split(' ')[0]; // Holen der Nummer aus dem Text
+            var beschreibungNummer = beschreibungText.split(' ')[0]; // Holen der Nummer aus dem Text
+
+            if (tanzschrittNummer === beschreibungNummer) {
+                console.log(tanzschrittText + ' -> ' + beschreibungText);
+            } else {
+                console.log('Ungültige Zuordnung. Bitte erneut versuchen.');
+            }
 
             // Zurücksetzen für weitere Zuordnungen
             selectedTanzschritt.classList.remove('selected');

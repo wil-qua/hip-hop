@@ -50,8 +50,7 @@
             background-color: #007aff;
             color: white;
             border-radius: 8px;
-            cursor: grab;
-            touch-action: none; /* Prevent default touch actions */
+            cursor: pointer;
             font-size: 16px;
             font-weight: 500;
             transition: background-color 0.3s;
@@ -67,6 +66,7 @@
             border: 2px dashed #e0e0e0;
             border-radius: 8px;
             transition: border-color 0.3s;
+            cursor: pointer;
         }
         .droppable-hover {
             border-color: #007aff;
@@ -83,16 +83,16 @@
 
 <div class="container">
     <div class="column left">
-        <div class="droppable" id="step5">Bounce Knees up (2x links, 2x rechts)</div>
-        <div class="droppable" id="step6">Reebok (1x links, 1x rechts)</div>
-        <div class="droppable" id="step7">Monestary (2x links, 2x rechts)</div>
-        <div class="droppable" id="step8">Spongebob Move (1x links, 1x rechts)</div>
+        <div class="droppable" id="step5" onclick="handleDrop('step5')">Bounce Knees up (2x links, 2x rechts)</div>
+        <div class="droppable" id="step6" onclick="handleDrop('step6')">Reebok (1x links, 1x rechts)</div>
+        <div class="droppable" id="step7" onclick="handleDrop('step7')">Monestary (2x links, 2x rechts)</div>
+        <div class="droppable" id="step8" onclick="handleDrop('step8')">Spongebob Move (1x links, 1x rechts)</div>
     </div>
     <div class="column right">
-        <div class="draggable" draggable="true" id="desc5">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
-        <div class="draggable" draggable="true" id="desc6">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
-        <div class="draggable" draggable="true" id="desc7">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
-        <div class="draggable" draggable="true" id="desc8">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
+        <div class="draggable" id="desc5" onclick="handleDrag('desc5')">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
+        <div class="draggable" id="desc6" onclick="handleDrag('desc6')">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
+        <div class="draggable" id="desc7" onclick="handleDrag('desc7')">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
+        <div class="draggable" id="desc8" onclick="handleDrag('desc8')">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
     </div>
 </div>
 
@@ -105,97 +105,28 @@
     Der Duft von heißem Kaffee schwebt in der Luft, <br>
     Lockt uns zu einer gemütlichen Sitzecke, wo die Zeit verweilt in sanfter Ruhe. <br>
     Und in der gemütlichen Sitzecke, bei einem Schluck Kaffee in der Hand, <br>
-    Erinnern wir uns, dass der Wer das Ziel ist, das uns verband.</
-    </p>
+    Erinnern wir uns, dass der Wer das Ziel ist, das uns verband.</p>
 </div>
 
 <script>
-    const draggables = document.querySelectorAll('.draggable');
-    const droppables = document.querySelectorAll('.droppable');
-    const message = document.getElementById('message');
+    let currentDraggable = null;
 
-    draggables.forEach(draggable => {
-        // Mouse events
-        draggable.addEventListener('dragstart', () => {
-            draggable.classList.add('dragging');
-        });
+    function handleDrag(id) {
+        currentDraggable = id;
+    }
 
-        draggable.addEventListener('dragend', () => {
-            draggable.classList.remove('dragging');
+    function handleDrop(stepId) {
+        if (currentDraggable !== null) {
+            const draggable = document.getElementById(currentDraggable);
+            const step = document.getElementById(stepId);
+            step.appendChild(draggable);
             checkCorrectness();
-        });
+            currentDraggable = null;
+        }
+    }
 
-        // Touch events
-        draggable.addEventListener('touchstart', (e) => {
-            draggable.classList.add('dragging');
-            e.preventDefault();
-        });
-
-        draggable.addEventListener('touchend', () => {
-            draggable.classList.remove('dragging');
-            checkCorrectness();
-        });
-    });
-
-    droppables.forEach(droppable => {
-        // Mouse events
-        droppable.addEventListener('dragover', (e) => {
-            e.preventDefault();
-        });
-
-        droppable.addEventListener('drop', (e) => {
-            e.preventDefault();
-            const dragging = document.querySelector('.dragging');
-            if (!dragging.parentNode.classList.contains('droppable')) {
-                if (!droppable.querySelector('.draggable')) {
-                    droppable.appendChild(dragging);
-                }
-                droppable.classList.remove('droppable-hover');
-            }
-            checkCorrectness();
-        });
-
-        // Touch events
-        droppable.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-        });
-
-        droppable.addEventListener('touchmove', (e) => {
-            e.preventDefault();
-            const touchLocation = e.targetTouches[0];
-            const dragging = document.querySelector('.dragging');
-            dragging.style.position = 'absolute';
-            dragging.style.left = touchLocation.pageX - 50 + 'px';
-            dragging.style.top = touchLocation.pageY - 25 + 'px';
-
-            droppables.forEach(droppable => {
-                const droppableRect = droppable.getBoundingClientRect();
-                if (
-                    touchLocation.pageX > droppableRect.left &&
-                    touchLocation.pageX < droppableRect.right &&
-                    touchLocation.pageY > droppableRect.top &&
-                    touchLocation.pageY < droppableRect.bottom
-                ) {
-                    droppable.classList.add('droppable-hover');
-                } else {
-                    droppable.classList.remove('droppable-hover');
-                }
-            });
-        });
-
-        droppable.addEventListener('touchend', (e) => {
-            const dragging = document.querySelector('.dragging');
-            if (droppable.classList.contains('droppable-hover') && !droppable.querySelector('.draggable')) {
-                droppable.appendChild(dragging);
-                dragging.style.position = 'static';
-                dragging.style.left = 'auto';
-                dragging.style.top = 'auto';
-                droppable.classList.remove('droppable-hover');
-            }
-            checkCorrectness();
-        });
-    });
-
+    function checkCorrectness() {
+        const correct
     function checkCorrectness() {
         const correctMappings = {
             step5: 'desc5',

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hip Hop Tanzschritte</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .column {
+            padding: 20px;
+        }
+        .left, .right {
+            width: 200px;
+        }
+        .left {
+            border-right: 2px solid #ddd;
+        }
+        .draggable {
+            padding: 8px;
+            margin: 5px 0;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            cursor: grab;
+        }
+        .droppable {
+            min-height: 30px;
+            padding: 8px;
+            margin: 5px 0;
+            background-color: #fff;
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="column left">
+        <div class="draggable" draggable="true" id="step1">Moonwalk</div>
+        <div class="draggable" draggable="true" id="step2">Pop and Lock</div>
+        <div class="draggable" draggable="true" id="step3">Breaking</div>
+    </div>
+    <div class="column right">
+        <div class="droppable" id="desc1">Beschreibung 1: Rückwärts gleiten auf den Zehen</div>
+        <div class="droppable" id="desc2">Beschreibung 2: Roboterartige Bewegungen</div>
+        <div class="droppable" id="desc3">Beschreibung 3: Akrobatische Bodenbewegungen</div>
+    </div>
+</div>
+
+<script>
+    const draggables = document.querySelectorAll('.draggable');
+    const droppables = document.querySelectorAll('.droppable');
+
+    draggables.forEach(draggable => {
+        draggable.addEventListener('dragstart', () => {
+            draggable.classList.add('dragging');
+        });
+
+        draggable.addEventListener('dragend', () => {
+            draggable.classList.remove('dragging');
+        });
+    });
+
+    droppables.forEach(droppable => {
+        droppable.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            const dragging = document.querySelector('.dragging');
+            droppable.appendChild(dragging);
+        });
+    });
+</script>
+
+</body>
+</html>

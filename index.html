@@ -10,8 +10,7 @@
         }
         .container {
             display: flex;
-            justify-content: space-around;
-            align-items: flex-start;
+            justify-content: space-between;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
@@ -32,18 +31,20 @@
 <body>
     <h1>Hip Hop Tanzschritte Rätsel</h1>
     <div class="container">
-        <div id="Bounce" class="tanzschritt" draggable="true">Bounce Knees up (2x links, 2x rechts)</div>
-        <div id="Reebok" class="tanzschritt" draggable="true">Reebok (1x links, 1x rechts)</div>
-        <div id="Monestary" class="tanzschritt" draggable="true">Monestary (2x links, 2x rechts)</div>
-        <div id="Spongebob" class="tanzschritt" draggable="true">Spongebob Move (1x links, 1x rechts)</div>
-        <div id="Alf" class="tanzschritt" draggable="true">Alf (1x links, 1x rechts)</div>
-    </div>
-    <div class="container">
-        <div id="BounceDesc" class="beschreibung droppable">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
-        <div id="ReebokDesc" class="beschreibung droppable">Ein Schritt, bei dem mit beiden Beinen geschlossen zu einer Seite gesprungen wird. Der entgegengesetzte Arm haut ebenfalls in die Richtung. Das gleiche dann zur anderen Seite und dann doppelt in die erste Richtung. Erst dann ist der Move beendet.</div>
-        <div id="MonestaryDesc" class="beschreibung droppable">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
-        <div id="SpongebobDesc" class="beschreibung droppable">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
-        <div id="AlfDesc" class="beschreibung droppable">Ein Schritt, bei dem die Beine geschlossen und gebeugt sind. Nun wird ein Bein nach außen angewinkelt und das andere gestreckt. Die Arme sind auch zunächst gebeugt und strecken sich dann nach unten in die Richtung, in die das angewinkelte Bein zeigt. Wichtig ist, dass die Füße den Boden nicht verlassen.</div>
+        <div id="Tanzschritte" class="tanzschritt-container">
+            <div id="Bounce" class="tanzschritt" draggable="true">Bounce Knees up (2x links, 2x rechts)</div>
+            <div id="Reebok" class="tanzschritt" draggable="true">Reebok (1x links, 1x rechts)</div>
+            <div id="Monestary" class="tanzschritt" draggable="true">Monestary (2x links, 2x rechts)</div>
+            <div id="Spongebob" class="tanzschritt" draggable="true">Spongebob Move (1x links, 1x rechts)</div>
+            <div id="Alf" class="tanzschritt" draggable="true">Alf (1x links, 1x rechts)</div>
+        </div>
+        <div id="Beschreibungen" class="beschreibung-container">
+            <div id="BounceDesc" class="beschreibung droppable" data-correct-tanzschritt="Bounce">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
+            <div id="ReebokDesc" class="beschreibung droppable" data-correct-tanzschritt="Reebok">Ein Schritt, bei dem mit beiden Beinen geschlossen zu einer Seite gesprungen wird. Der entgegengesetzte Arm haut ebenfalls in die Richtung. Das gleiche dann zur anderen Seite und dann doppelt in die erste Richtung. Erst dann ist der Move beendet.</div>
+            <div id="MonestaryDesc" class="beschreibung droppable" data-correct-tanzschritt="Monestary">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
+            <div id="SpongebobDesc" class="beschreibung droppable" data-correct-tanzschritt="Spongebob">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
+            <div id="AlfDesc" class="beschreibung droppable" data-correct-tanzschritt="Alf">Ein Schritt, bei dem die Beine geschlossen und gebeugt sind. Nun wird ein Bein nach außen angewinkelt und das andere gestreckt. Die Arme sind auch zunächst gebeugt und strecken sich dann nach unten in die Richtung, in die das angewinkelte Bein zeigt. Wichtig ist, dass die Füße den Boden nicht verlassen.</div>
+        </div>
     </div>
 
     <script>
@@ -67,9 +68,11 @@
                 var draggableElement = document.getElementById(data);
                 var droppableElement = this;
 
-                if (!draggableElement.classList.contains('connected') && droppableElement.children.length === 0) {
+                if (!droppableElement.children.length) {
                     droppableElement.appendChild(draggableElement);
-                    draggableElement.classList.add('connected');
+                    if (droppableElement.dataset.correctTanzschritt === draggableElement.id) {
+                        draggableElement.classList.add('connected');
+                    }
                 }
             });
         });

@@ -83,16 +83,16 @@
 
 <div class="container">
     <div class="column left">
-        <div class="droppable" id="step5">Bounce Knees up (2x links, 2x rechts)</div>
-        <div class="droppable" id="step6">Reebok (1x links, 1x rechts)</div>
-        <div class="droppable" id="step7">Monestary (2x links, 2x rechts)</div>
-        <div class="droppable" id="step8">Spongebob Move (1x links, 1x rechts)</div>
+        <div class="droppable" id="step5" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event)">Bounce Knees up (2x links, 2x rechts)</div>
+        <div class="droppable" id="step6" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event)">Reebok (1x links, 1x rechts)</div>
+        <div class="droppable" id="step7" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event)">Monestary (2x links, 2x rechts)</div>
+        <div class="droppable" id="step8" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event)">Spongebob Move (1x links, 1x rechts)</div>
     </div>
     <div class="column right">
-        <div class="draggable" id="desc5" onclick="handleClick('desc5')">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
-        <div class="draggable" id="desc6" onclick="handleClick('desc6')">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
-        <div class="draggable" id="desc7" onclick="handleClick('desc7')">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
-        <div class="draggable" id="desc8" onclick="handleClick('desc8')">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
+        <div class="draggable" id="desc5" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event)">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
+        <div class="draggable" id="desc6" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event)">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
+        <div class="draggable" id="desc7" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event)">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
+        <div class="draggable" id="desc8" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event)">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
     </div>
 </div>
 
@@ -105,49 +105,49 @@
     Der Duft von heißem Kaffee schwebt in der Luft, <br>
     Lockt uns zu einer gemütlichen Sitzecke, wo die Zeit verweilt in sanfter Ruhe. <br>
     Und in der gemütlichen Sitzecke, bei einem Schluck Kaffee in der Hand, <br>
-    Erinnern wir uns, dass der Wer das Ziel ist, das uns verband.</p>
+    Erinnern wir uns, dass der Weg das Ziel ist, das uns verband.</p>
 </div>
 
 <script>
-    let currentDescription = null;
-
-    function handleClick(descId) {
-        currentDescription = descId;
-    }
-
-    document.querySelectorAll('.droppable').forEach(item => {
-        item.addEventListener('click', event => {
-            if (currentDescription !== null) {
-                const description = document.getElementById(currentDescription);
-                item.appendChild(description);
-                checkCorrectness();
-                currentDescription = null;
+    // Funktion zur Überprüfung der Korrektheit
+    function checkCorrectness() {
+        const container = document.querySelector('.container');
+        const steps = container.querySelectorAll('.droppable');
+        const message = document.getElementById('message');
+        let correct = true;
+        steps.forEach(step => {
+            if (step.childElementCount !== 1) {
+                correct = false;
             }
         });
-    });
-
-    function checkCorrectness() {
-        const correctMappings = {
-            step5: 'desc5',
-            step6: 'desc6',
-            step7: 'desc7',
-            step8: 'desc8'
-        };
-
-        let correct = true;
-        for (const stepId in correctMappings) {
-            const step = document.getElementById(stepId);
-            const descId = correctMappings[stepId];
-            const desc = document.getElementById(descId);
-            if (!step.contains(desc)) {
-                correct = false;
-                break;
-            }
-        }
-
         if (correct) {
             document.querySelector('.container').classList.add('hidden');
             message.classList.remove('hidden');
+        }
+    }
+
+    // Touch-Events
+    let touchStartId = null;
+    let touchEndId = null;
+
+    function handleTouchStart(event) {
+        touchStartId = event.target.id;
+    }
+
+    function handleTouchMove(event) {
+        // Verhindern, dass das Scrollen während des Ziehens unterbunden wird
+        event.preventDefault();
+    }
+
+    function handleTouchEnd(event) {
+        touchEndId = event.target.id;
+        if (touchStartId && touchEndId) {
+            const description = document.getElementById(touchStartId);
+            const step = document.getElementById(touchEndId);
+            step.appendChild(description);
+            checkCorrectness();
+            touchStartId = null;
+            touchEndId = null;
         }
     }
 </script>

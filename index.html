@@ -3,97 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hip Hop Tanzschritte</title>
+    <title>Hip Hop Tanzschritte Rätsel</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: flex-start;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
+        .tanzschritt, .beschreibung {
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px;
+            width: calc(50% - 20px);
+            cursor: pointer;
         }
         .correct {
             color: green;
         }
+        .incorrect {
+            color: red;
+        }
     </style>
 </head>
 <body>
-    <h1>Hip Hop Tanzschritte</h1>
-    <table>
-        <tr>
-            <th>Tanzschritte</th>
-            <th>Beschreibungen</th>
-        </tr>
-        <tr>
-            <td id="Bounce" class="tanzschritt">Bounce Knees up (2x links, 2x rechts)</td>
-            <td id="BounceDesc" class="beschreibung">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</td>
-        </tr>
-        <tr>
-            <td id="Reebok" class="tanzschritt">Reebok (1x links, 1x rechts)</td>
-            <td id="ReebokDesc" class="beschreibung">Ein Schritt, bei dem mit beiden Beinen geschlossen zu einer Seite gesprungen wird. Der entgegengesetzte Arm haut ebenfalls in die Richtung. Das gleiche dann zur anderen Seite und dann doppelt in die erste Richtung. Erst dann ist der Move beendet.</td>
-        </tr>
-        <tr>
-            <td id="Monestary" class="tanzschritt">Monestary (2x links, 2x rechts)</td>
-            <td id="MonestaryDesc" class="beschreibung">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</td>
-        </tr>
-        <tr>
-            <td id="Spongebob" class="tanzschritt">Spongebob Move (1x links, 1x rechts)</td>
-            <td id="SpongebobDesc" class="beschreibung">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</td>
-        </tr>
-        <tr>
-            <td id="Alf" class="tanzschritt">Alf (1x links, 1x rechts)</td>
-            <td id="AlfDesc" class="beschreibung">Ein Schritt, bei dem die Beine geschlossen und gebeugt sind. Nun wird ein Bein nach außen angewinkelt und das andere gestreckt. Die Arme sind auch zunächst gebeugt und strecken sich dann nach unten in die Richtung, in die das angewinkelte Bein zeigt. Wichtig ist, dass die Füße den Boden nicht verlassen.</td>
-        </tr>
-    </table>
+    <h1>Hip Hop Tanzschritte Rätsel</h1>
+    <div class="container">
+        <div id="Bounce" class="tanzschritt">Bounce Knees up (2x links, 2x rechts)</div>
+        <div id="Reebok" class="tanzschritt">Reebok (1x links, 1x rechts)</div>
+        <div id="Monestary" class="tanzschritt">Monestary (2x links, 2x rechts)</div>
+        <div id="Spongebob" class="tanzschritt">Spongebob Move (1x links, 1x rechts)</div>
+        <div id="Alf" class="tanzschritt">Alf (1x links, 1x rechts)</div>
+        <div id="BounceDesc" class="beschreibung" data-correct-tanzschritt="Bounce">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
+        <div id="ReebokDesc" class="beschreibung" data-correct-tanzschritt="Reebok">Ein Schritt, bei dem mit beiden Beinen geschlossen zu einer Seite gesprungen wird. Der entgegengesetzte Arm haut ebenfalls in die Richtung. Das gleiche dann zur anderen Seite und dann doppelt in die erste Richtung. Erst dann ist der Move beendet.</div>
+        <div id="MonestaryDesc" class="beschreibung" data-correct-tanzschritt="Monestary">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
+        <div id="SpongebobDesc" class="beschreibung" data-correct-tanzschritt="Spongebob">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
+        <div id="AlfDesc" class="beschreibung" data-correct-tanzschritt="Alf">Ein Schritt, bei dem die Beine geschlossen und gebeugt sind. Nun wird ein Bein nach außen angewinkelt und das andere gestreckt. Die Arme sind auch zunächst gebeugt und strecken sich dann nach unten in die Richtung, in die das angewinkelte Bein zeigt. Wichtig ist, dass die Füße den Boden nicht verlassen.</div>
+    </div>
 
     <script>
-        var correctMatches = 0;
+        var beschreibungen = document.querySelectorAll('.beschreibung');
+        var tanzschritte = document.querySelectorAll('.tanzschritt');
 
-        // Funktion zur Überprüfung der korrekten Zuordnung
-        function checkCorrectness() {
-            var beschreibungen = document.getElementsByClassName("beschreibung");
-            for (var i = 0; i < beschreibungen.length; i++) {
-                var beschreibung = beschreibungen[i];
-                var tanzschrittId = beschreibung.getAttribute("data-tanzschritt");
-                var tanzschritt = document.getElementById(tanzschrittId);
-                if (beschreibung.previousElementSibling === tanzschritt) {
-                    beschreibung.classList.add("correct");
-                    correctMatches++;
+        beschreibungen.forEach(function(beschreibung) {
+            beschreibung.addEventListener('click', function() {
+                var selectedBeschreibung = this;
+                if (selectedBeschreibung.classList.contains('correct')) return;
+
+                var currentTanzschritt = selectedBeschreibung.parentNode.querySelector('.tanzschritt');
+                var currentTanzschrittId = currentTanzschritt.id;
+                var correctTanzschrittId = selectedBeschreibung.getAttribute('data-correct-tanzschritt');
+
+                if (currentTanzschrittId === correctTanzschrittId) {
+                    selectedBeschreibung.classList.add('correct');
+                    checkCompletion();
                 } else {
-                    beschreibung.classList.remove("correct");
+                    selectedBeschreibung.classList.add('incorrect');
+                    setTimeout(function() {
+                        selectedBeschreibung.classList.remove('incorrect');
+                    }, 1000);
                 }
-            }
-            if (correctMatches === beschreibungen.length) {
-                alert("Geschafft!");
-            }
-        }
-
-        // Eventlistener für Touch-Klick auf Beschreibungen und Tanzschritte
-        var beschreibungen = document.getElementsByClassName("beschreibung");
-        var tanzschritte = document.getElementsByClassName("tanzschritt");
-
-        for (var i = 0; i < beschreibungen.length; i++) {
-            beschreibungen[i].addEventListener("click", function() {
-                var beschreibung = this;
-                var tanzschrittId = beschreibung.getAttribute("data-tanzschritt");
-                var tanzschritt = document.getElementById(tanzschrittId);
-                tanzschritt.appendChild(beschreibung);
-                checkCorrectness();
             });
-        }
+        });
 
-        for (var i = 0; i < tanzschritte.length; i++) {
-            tanzschritte[i].addEventListener("click", function() {
-                var tanzschritt = this;
-                var beschreibung = tanzschritt.nextElementSibling;
-                tanzschritt.appendChild(beschreibung);
-                checkCorrectness();
+        tanzschritte.forEach(function(tanzschritt) {
+            tanzschritt.addEventListener('click', function() {
+                var currentTanzschritt = this;
+                var currentTanzschrittId = currentTanzschritt.id;
+                var beschreibung = currentTanzschritt.parentNode.querySelector('[data-correct-tanzschritt="' + currentTanzschrittId + '"]');
+                var parent = beschreibung.parentNode;
+
+                if (!parent.classList.contains('container')) {
+                    parent.removeChild(beschreibung);
+                    currentTanzschritt.appendChild(beschreibung);
+                    beschreibung.classList.remove('correct');
+                }
             });
+        });
+
+        function checkCompletion() {
+            var correctBeschreibungen = document.querySelectorAll('.correct');
+            if (correctBeschreibungen.length === beschreibungen.length) {
+                alert('Geschafft!');
+            }
         }
     </script>
 </body>

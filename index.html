@@ -3,155 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Station 5: Choreo lernen</title>
+    <title>Hip Hop Tanzschritte</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            background-color: #f5f5f7;
-            color: #333;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        p {
-            font-size: 1.2em;
-            margin-bottom: 40px;
-            color: #555;
-            text-align: center;
-            max-width: 800px;
-        }
         .container {
             display: flex;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            overflow: hidden;
-            max-width: 800px;
-            width: 100%;
+            flex-wrap: wrap;
         }
-        .column {
-            padding: 20px;
-            flex: 1;
-        }
-        .left {
-            border-right: 1px solid #e0e0e0;
-        }
-        .draggable {
-            padding: 12px 20px;
-            margin: 20px 0;
-            background-color: #007aff;
-            color: white;
-            border-radius: 8px;
+        .tanzschritt, .beschreibung {
+            width: 45%;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: 500;
-            transition: background-color 0.3s;
-        }
-        .draggable:active {
-            background-color: #005bb5;
-        }
-        .droppable {
-            min-height: 50px;
-            padding: 12px 20px;
-            margin: 20px 0;
-            background-color: #f5f5f7;
-            border: 2px dashed #e0e0e0;
-            border-radius: 8px;
-            transition: border-color 0.3s;
-            cursor: pointer;
-        }
-        .droppable-hover {
-            border-color: #007aff;
-        }
-        .hidden {
-            display: none;
         }
     </style>
 </head>
 <body>
 
-<h1>Station 5: Choreo lernen</h1>
-<p>Aufgabe: Ordnet die Beschreibungen von Tanzschritten den passenden Namen der Tanzschritte zu. Erstellt zusätzlich aus allen genannten Schritten eine kleine Choreo mit Videobeweis. Wenn ihr richtigliegt, erhaltet ihr einen Hinweis für die nächste Station.</p>
-
 <div class="container">
-    <div class="column left">
-        <div class="droppable" id="step5" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event)">Bounce Knees up (2x links, 2x rechts)</div>
-        <div class="droppable" id="step6" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event)">Reebok (1x links, 1x rechts)</div>
-        <div class="droppable" id="step7" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event)">Monestary (2x links, 2x rechts)</div>
-        <div class="droppable" id="step8" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event)">Spongebob Move (1x links, 1x rechts)</div>
-    </div>
-    <div class="column right">
-        <div class="draggable" id="desc5" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event)">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
-        <div class="draggable" id="desc6" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event)">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
-        <div class="draggable" id="desc7" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event)">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
-        <div class="draggable" id="desc8" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event)">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
-    </div>
+    <div class="tanzschritt" id="tanzschritt1" onclick="handleClick('tanzschritt1')">Bounce Knees up (2x links, 2x rechts)</div>
+    <div class="tanzschritt" id="tanzschritt2" onclick="handleClick('tanzschritt2')">Reebok (1x links, 1x rechts)</div>
+    <div class="tanzschritt" id="tanzschritt3" onclick="handleClick('tanzschritt3')">Monestary (2x links, 2x rechts)</div>
+    <div class="tanzschritt" id="tanzschritt4" onclick="handleClick('tanzschritt4')">Spongebob Move (1x links, 1x rechts)</div>
+    <div class="tanzschritt" id="tanzschritt5" onclick="handleClick('tanzschritt5')">Alf (1x links, 1x rechts)</div>
 </div>
 
-<div class="hidden" id="message">
-    <p>Durch die Tore des Sportvereins, voller Leben und Tat, <br>
-    Ein Labyrinth aus Hallen und Spielfeldern, das uns lockt und anzieht. <br>
-    Wir schlendern vorbei an jubelnden Fans, die ihre Helden preisen, <br>
-    Und lauschen dem Rhythmus der Schritte, die auf den Böden kreisen. <br>
-    <br>
-    Der Duft von heißem Kaffee schwebt in der Luft, <br>
-    Lockt uns zu einer gemütlichen Sitzecke, wo die Zeit verweilt in sanfter Ruhe. <br>
-    Und in der gemütlichen Sitzecke, bei einem Schluck Kaffee in der Hand, <br>
-    Erinnern wir uns, dass der Weg das Ziel ist, das uns verband.</p>
+<div class="container">
+    <div class="beschreibung" id="beschreibung1" onclick="handleClick('beschreibung1')">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
+    <div class="beschreibung" id="beschreibung2" onclick="handleClick('beschreibung2')">Ein Schritt, bei dem mit beiden Beinen geschlossen zu einer Seite gesprungen wird. Der entgegengesetzte Arm haut ebenfalls in die Richtung. Das gleiche dann zur anderen Seite und dann doppelt in die erste Richtung. Erst dann ist der Move beendet.</div>
+    <div class="beschreibung" id="beschreibung3" onclick="handleClick('beschreibung3')">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
+    <div class="beschreibung" id="beschreibung4" onclick="handleClick('beschreibung4')">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
+    <div class="beschreibung" id="beschreibung5" onclick="handleClick('beschreibung5')">Ein Schritt, bei dem die Beine geschlossen und gebeugt sind. Nun wird ein Bein nach außen angewinkelt und das andere gestreckt. Die Arme sind auch zunächst gebeugt und strecken sich dann nach unten in die Richtung, in die das angewinkelte Bein zeigt. Wichtig ist, dass die Füße den Boden nicht verlassen.</div>
 </div>
 
 <script>
-    // Funktion zur Überprüfung der Korrektheit
-    function checkCorrectness() {
-        const container = document.querySelector('.container');
-        const steps = container.querySelectorAll('.droppable');
-        const message = document.getElementById('message');
-        let correct = true;
-        steps.forEach(step => {
-            if (step.childElementCount !== 1) {
-                correct = false;
+    var selectedTanzschritt = null;
+    var selectedBeschreibung = null;
+
+    function handleClick(id) {
+        var element = document.getElementById(id);
+
+        if (element.classList.contains('tanzschritt')) {
+            if (selectedTanzschritt !== null) {
+                selectedTanzschritt.classList.remove('selected');
             }
-        });
-        if (correct) {
-            document.querySelector('.container').classList.add('hidden');
-            message.classList.remove('hidden');
+            selectedTanzschritt = element;
+        } else if (element.classList.contains('beschreibung')) {
+            if (selectedBeschreibung !== null) {
+                selectedBeschreibung.classList.remove('selected');
+            }
+            selectedBeschreibung = element;
         }
-    }
 
-    // Touch-Events
-    let touchStartId = null;
-    let touchEndId = null;
+        element.classList.add('selected');
 
-    function handleTouchStart(event) {
-        touchStartId = event.target.id;
-    }
+        if (selectedTanzschritt !== null && selectedBeschreibung !== null) {
+            // Hier kannst du die Zuordnung durchführen
+            console.log(selectedTanzschritt.textContent.trim() + ' -> ' + selectedBeschreibung.textContent.trim());
 
-    function handleTouchMove(event) {
-        // Verhindern, dass das Scrollen während des Ziehens unterbunden wird
-        event.preventDefault();
-    }
-
-    function handleTouchEnd(event) {
-        touchEndId = event.target.id;
-        if (touchStartId && touchEndId) {
-            const description = document.getElementById(touchStartId);
-            const step = document.getElementById(touchEndId);
-            step.appendChild(description);
-            checkCorrectness();
-            touchStartId = null;
-            touchEndId = null;
+            // Zurücksetzen für weitere Zuordnungen
+            selectedTanzschritt.classList.remove('selected');
+            selectedBeschreibung.classList.remove('selected');
+            selectedTanzschritt = null;
+            selectedBeschreibung = null;
         }
     }
 </script>
 
 </body>
 </html>
-

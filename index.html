@@ -7,10 +7,12 @@
     <style>
         .container {
             display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
             flex-wrap: wrap;
         }
         .tanzschritt, .beschreibung {
-            width: 45%;
+            width: calc(50% - 20px);
             margin: 10px;
             padding: 10px;
             border: 1px solid #ccc;
@@ -19,65 +21,68 @@
         .selected {
             background-color: lightblue;
         }
+        #success {
+            display: none;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="tanzschritt" id="tanzschritt1" onclick="handleClick('tanzschritt1')">Bounce Knees up (2x links, 2x rechts)</div>
-    <div class="tanzschritt" id="tanzschritt2" onclick="handleClick('tanzschritt2')">Reebok (1x links, 1x rechts)</div>
-    <div class="tanzschritt" id="tanzschritt3" onclick="handleClick('tanzschritt3')">Monestary (2x links, 2x rechts)</div>
-    <div class="tanzschritt" id="tanzschritt4" onclick="handleClick('tanzschritt4')">Spongebob Move (1x links, 1x rechts)</div>
-    <div class="tanzschritt" id="tanzschritt5" onclick="handleClick('tanzschritt5')">Alf (1x links, 1x rechts)</div>
+    <div id="tanzschritte">
+        <div class="tanzschritt" id="tanzschritt1" onclick="handleClick('tanzschritt1')">Bounce Knees up (2x links, 2x rechts)</div>
+        <div class="tanzschritt" id="tanzschritt2" onclick="handleClick('tanzschritt2')">Reebok (1x links, 1x rechts)</div>
+        <div class="tanzschritt" id="tanzschritt3" onclick="handleClick('tanzschritt3')">Monestary (2x links, 2x rechts)</div>
+        <div class="tanzschritt" id="tanzschritt4" onclick="handleClick('tanzschritt4')">Spongebob Move (1x links, 1x rechts)</div>
+        <div class="tanzschritt" id="tanzschritt5" onclick="handleClick('tanzschritt5')">Alf (1x links, 1x rechts)</div>
+    </div>
+
+    <div id="beschreibungen">
+        <div class="beschreibung" id="beschreibung1" onclick="handleClick('beschreibung1')">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
+        <div class="beschreibung" id="beschreibung2" onclick="handleClick('beschreibung2')">Ein Schritt, bei dem mit beiden Beinen geschlossen zu einer Seite gesprungen wird. Der entgegengesetzte Arm haut ebenfalls in die Richtung. Das gleiche dann zur anderen Seite und dann doppelt in die erste Richtung. Erst dann ist der Move beendet.</div>
+        <div class="beschreibung" id="beschreibung3" onclick="handleClick('beschreibung3')">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
+        <div class="beschreibung" id="beschreibung4" onclick="handleClick('beschreibung4')">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
+        <div class="beschreibung" id="beschreibung5" onclick="handleClick('beschreibung5')">Ein Schritt, bei dem die Beine geschlossen und gebeugt sind. Nun wird ein Bein nach außen angewinkelt und das andere gestreckt. Die Arme sind auch zunächst gebeugt und strecken sich dann nach unten in die Richtung, in die das angewinkelte Bein zeigt. Wichtig ist, dass die Füße den Boden nicht verlassen.</div>
+    </div>
 </div>
 
-<div class="container">
-    <div class="beschreibung" id="beschreibung1" onclick="handleClick('beschreibung1')">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
-    <div class="beschreibung" id="beschreibung2" onclick="handleClick('beschreibung2')">Ein Schritt, bei dem mit beiden Beinen geschlossen zu einer Seite gesprungen wird. Der entgegengesetzte Arm haut ebenfalls in die Richtung. Das gleiche dann zur anderen Seite und dann doppelt in die erste Richtung. Erst dann ist der Move beendet.</div>
-    <div class="beschreibung" id="beschreibung3" onclick="handleClick('beschreibung3')">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
-    <div class="beschreibung" id="beschreibung4" onclick="handleClick('beschreibung4')">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
-    <div class="beschreibung" id="beschreibung5" onclick="handleClick('beschreibung5')">Ein Schritt, bei dem die Beine geschlossen und gebeugt sind. Nun wird ein Bein nach außen angewinkelt und das andere gestreckt. Die Arme sind auch zunächst gebeugt und strecken sich dann nach unten in die Richtung, in die das angewinkelte Bein zeigt. Wichtig ist, dass die Füße den Boden nicht verlassen.</div>
-</div>
+<div id="success">GESCHAFFT!!</div>
 
 <script>
-    var selectedTanzschritt = null;
-    var selectedBeschreibung = null;
+    var selectedTanzschritte = [];
+    var selectedBeschreibungen = [];
 
     function handleClick(id) {
         var element = document.getElementById(id);
 
         if (element.classList.contains('tanzschritt')) {
-            if (selectedTanzschritt !== null) {
-                selectedTanzschritt.classList.remove('selected');
+            if (!selectedTanzschritte.includes(id)) {
+                selectedTanzschritte.push(id);
             }
-            selectedTanzschritt = element;
         } else if (element.classList.contains('beschreibung')) {
-            if (selectedBeschreibung !== null) {
-                selectedBeschreibung.classList.remove('selected');
+            if (!selectedBeschreibungen.includes(id)) {
+                selectedBeschreibungen.push(id);
             }
-            selectedBeschreibung = element;
         }
 
         element.classList.add('selected');
 
-        if (selectedTanzschritt !== null && selectedBeschreibung !== null) {
-            // Hier wird die Zuordnung durchgeführt
-            var tanzschrittText = selectedTanzschritt.textContent.trim();
-            var beschreibungText = selectedBeschreibung.textContent.trim();
-            var tanzschrittNummer = tanzschrittText.split(' ')[0]; // Holen der Nummer aus dem Text
-            var beschreibungNummer = beschreibungText.split(' ')[0]; // Holen der Nummer aus dem Text
-
-            if (tanzschrittNummer === beschreibungNummer) {
-                console.log(tanzschrittText + ' -> ' + beschreibungText);
-            } else {
-                console.log('Ungültige Zuordnung. Bitte erneut versuchen.');
+        if (selectedTanzschritte.length === selectedBeschreibungen.length) {
+            var success = true;
+            for (var i = 0; i < selectedTanzschritte.length; i++) {
+                if (selectedTanzschritte[i].slice(-1) !== selectedBeschreibungen[i].slice(-1)) {
+                    success = false;
+                    break;
+                }
             }
 
-            // Zurücksetzen für weitere Zuordnungen
-            selectedTanzschritt.classList.remove('selected');
-            selectedBeschreibung.classList.remove('selected');
-            selectedTanzschritt = null;
-            selectedBeschreibung = null;
+            if (success) {
+                document.getElementById('success').style.display = 'block';
+            }
         }
     }
 </script>

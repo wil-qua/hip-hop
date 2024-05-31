@@ -17,6 +17,9 @@
         th {
             background-color: #f2f2f2;
         }
+        .correct {
+            color: green;
+        }
     </style>
 </head>
 <body>
@@ -49,32 +52,24 @@
     </table>
 
     <script>
-        var selectedBeschreibung = null;
+        var correctMatches = 0;
 
-        // Funktion zur Auswahl der Beschreibung
-        function selectBeschreibung(beschreibung) {
-            if (selectedBeschreibung === beschreibung) {
-                deselectBeschreibung();
-            } else {
-                deselectBeschreibung();
-                selectedBeschreibung = beschreibung;
-                beschreibung.style.backgroundColor = "#e0e0e0";
+        // Funktion zur Überprüfung der korrekten Zuordnung
+        function checkCorrectness() {
+            var beschreibungen = document.getElementsByClassName("beschreibung");
+            for (var i = 0; i < beschreibungen.length; i++) {
+                var beschreibung = beschreibungen[i];
+                var tanzschrittId = beschreibung.getAttribute("data-tanzschritt");
+                var tanzschritt = document.getElementById(tanzschrittId);
+                if (beschreibung.previousElementSibling === tanzschritt) {
+                    beschreibung.classList.add("correct");
+                    correctMatches++;
+                } else {
+                    beschreibung.classList.remove("correct");
+                }
             }
-        }
-
-        // Funktion zur Auswahl des Tanzschritts
-        function selectTanzschritt(tanzschritt) {
-            if (selectedBeschreibung !== null) {
-                tanzschritt.innerHTML = selectedBeschreibung.innerHTML;
-                deselectBeschreibung();
-            }
-        }
-
-        // Funktion zum Abwählen der Beschreibung
-        function deselectBeschreibung() {
-            if (selectedBeschreibung !== null) {
-                selectedBeschreibung.style.backgroundColor = "transparent";
-                selectedBeschreibung = null;
+            if (correctMatches === beschreibungen.length) {
+                alert("Geschafft!");
             }
         }
 
@@ -84,13 +79,20 @@
 
         for (var i = 0; i < beschreibungen.length; i++) {
             beschreibungen[i].addEventListener("click", function() {
-                selectBeschreibung(this);
+                var beschreibung = this;
+                var tanzschrittId = beschreibung.getAttribute("data-tanzschritt");
+                var tanzschritt = document.getElementById(tanzschrittId);
+                tanzschritt.appendChild(beschreibung);
+                checkCorrectness();
             });
         }
 
         for (var i = 0; i < tanzschritte.length; i++) {
             tanzschritte[i].addEventListener("click", function() {
-                selectTanzschritt(this);
+                var tanzschritt = this;
+                var beschreibung = tanzschritt.nextElementSibling;
+                tanzschritt.appendChild(beschreibung);
+                checkCorrectness();
             });
         }
     </script>

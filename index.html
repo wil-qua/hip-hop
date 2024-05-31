@@ -5,92 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hip Hop Tanzschritte</title>
     <style>
-        .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-        }
-        .tanzschritt, .beschreibung {
-            width: calc(50% - 20px);
-            margin: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            cursor: pointer;
-        }
-        .correct {
-            background-color: lightgreen;
-        }
-        .wrong {
-            background-color: tomato;
-        }
-        #success {
-            display: none;
+        table {
             width: 100%;
-            text-align: center;
-            font-weight: bold;
-            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
+    <h1>Hip Hop Tanzschritte</h1>
+    <table>
+        <tr>
+            <th>Tanzschritte</th>
+            <th>Beschreibungen</th>
+        </tr>
+        <tr>
+            <td id="Bounce" class="tanzschritt">Bounce Knees up (2x links, 2x rechts)</td>
+            <td id="BounceDesc" class="beschreibung">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</td>
+        </tr>
+        <tr>
+            <td id="Reebok" class="tanzschritt">Reebok (1x links, 1x rechts)</td>
+            <td id="ReebokDesc" class="beschreibung">Ein Schritt, bei dem mit beiden Beinen geschlossen zu einer Seite gesprungen wird. Der entgegengesetzte Arm haut ebenfalls in die Richtung. Das gleiche dann zur anderen Seite und dann doppelt in die erste Richtung. Erst dann ist der Move beendet.</td>
+        </tr>
+        <tr>
+            <td id="Monestary" class="tanzschritt">Monestary (2x links, 2x rechts)</td>
+            <td id="MonestaryDesc" class="beschreibung">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</td>
+        </tr>
+        <tr>
+            <td id="Spongebob" class="tanzschritt">Spongebob Move (1x links, 1x rechts)</td>
+            <td id="SpongebobDesc" class="beschreibung">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</td>
+        </tr>
+        <tr>
+            <td id="Alf" class="tanzschritt">Alf (1x links, 1x rechts)</td>
+            <td id="AlfDesc" class="beschreibung">Ein Schritt, bei dem die Beine geschlossen und gebeugt sind. Nun wird ein Bein nach außen angewinkelt und das andere gestreckt. Die Arme sind auch zunächst gebeugt und strecken sich dann nach unten in die Richtung, in die das angewinkelte Bein zeigt. Wichtig ist, dass die Füße den Boden nicht verlassen.</td>
+        </tr>
+    </table>
 
-<div class="container">
-    <div id="tanzschritte">
-        <div class="tanzschritt" id="tanzschritt1" onclick="handleClick('tanzschritt1')">Bounce Knees up (2x links, 2x rechts)</div>
-        <div class="tanzschritt" id="tanzschritt2" onclick="handleClick('tanzschritt2')">Reebok (1x links, 1x rechts)</div>
-        <div class="tanzschritt" id="tanzschritt3" onclick="handleClick('tanzschritt3')">Monestary (2x links, 2x rechts)</div>
-        <div class="tanzschritt" id="tanzschritt4" onclick="handleClick('tanzschritt4')">Spongebob Move (1x links, 1x rechts)</div>
-        <div class="tanzschritt" id="tanzschritt5" onclick="handleClick('tanzschritt5')">Alf (1x links, 1x rechts)</div>
-    </div>
+    <script>
+        var selectedBeschreibung = null;
 
-    <div id="beschreibungen">
-        <div class="beschreibung" id="beschreibung1" onclick="handleClick('beschreibung1')">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
-        <div class="beschreibung" id="beschreibung2" onclick="handleClick('beschreibung2')">Ein Schritt, bei dem mit beiden Beinen geschlossen zu einer Seite gesprungen wird. Der entgegengesetzte Arm haut ebenfalls in die Richtung. Das gleiche dann zur anderen Seite und dann doppelt in die erste Richtung. Erst dann ist der Move beendet.</div>
-        <div class="beschreibung" id="beschreibung3" onclick="handleClick('beschreibung3')">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
-        <div class="beschreibung" id="beschreibung4" onclick="handleClick('beschreibung4')">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
-        <div class="beschreibung" id="beschreibung5" onclick="handleClick('beschreibung5')">Ein Schritt, bei dem die Beine geschlossen und gebeugt sind. Nun wird ein Bein nach außen angewinkelt und das andere gestreckt. Die Arme sind auch zunächst gebeugt und strecken sich dann nach unten in die Richtung, in die das angewinkelte Bein zeigt. Wichtig ist, dass die Füße den Boden nicht verlassen.</div>
-    </div>
-</div>
-
-<div id="success">GESCHAFFT!!</div>
-
-<script>
-    var selectedTanzschritte = [];
-    var selectedBeschreibungen = [];
-
-    function handleClick(id) {
-        var element = document.getElementById(id);
-
-        if (element.classList.contains('tanzschritt')) {
-            if (!selectedTanzschritte.includes(id)) {
-                selectedTanzschritte.push(id);
-            }
-        } else if (element.classList.contains('beschreibung')) {
-            if (!selectedBeschreibungen.includes(id)) {
-                selectedBeschreibungen.push(id);
-            }
-        }
-
-        element.classList.add('selected');
-
-        if (selectedTanzschritte.length === selectedBeschreibungen.length) {
-            var success = true;
-            for (var i = 0; i < selectedTanzschritte.length; i++) {
-                if (selectedTanzschritte[i].slice(-1) !== selectedBeschreibungen[i].slice(-1)) {
-                    success = false;
-                    break;
-                }
-            }
-
-            if (success) {
-                document.getElementById('success').style.display = 'block';
+        // Funktion zur Auswahl der Beschreibung
+        function selectBeschreibung(beschreibung) {
+            if (selectedBeschreibung === beschreibung) {
+                deselectBeschreibung();
             } else {
-                document.getElementById('success').style.display = 'none';
+                deselectBeschreibung();
+                selectedBeschreibung = beschreibung;
+                beschreibung.style.backgroundColor = "#e0e0e0";
             }
         }
-    }
-</script>
 
+        // Funktion zur Auswahl des Tanzschritts
+        function selectTanzschritt(tanzschritt) {
+            if (selectedBeschreibung !== null) {
+                tanzschritt.innerHTML = selectedBeschreibung.innerHTML;
+                deselectBeschreibung();
+            }
+        }
+
+        // Funktion zum Abwählen der Beschreibung
+        function deselectBeschreibung() {
+            if (selectedBeschreibung !== null) {
+                selectedBeschreibung.style.backgroundColor = "transparent";
+                selectedBeschreibung = null;
+            }
+        }
+
+        // Eventlistener für Touch-Klick auf Beschreibungen und Tanzschritte
+        var beschreibungen = document.getElementsByClassName("beschreibung");
+        var tanzschritte = document.getElementsByClassName("tanzschritt");
+
+        for (var i = 0; i < beschreibungen.length; i++) {
+            beschreibungen[i].addEventListener("click", function() {
+                selectBeschreibung(this);
+            });
+        }
+
+        for (var i = 0; i < tanzschritte.length; i++) {
+            tanzschritte[i].addEventListener("click", function() {
+                selectTanzschritt(this);
+            });
+        }
+    </script>
 </body>
 </html>

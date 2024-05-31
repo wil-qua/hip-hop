@@ -3,103 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hip Hop Tanzschritte Rätsel</title>
+    <title>Station 5: Choreo lernen</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            background-color: #f5f5f7;
+            color: #333;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            color: #555;
+            text-align: center;
+            max-width: 800px;
         }
         .container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
             max-width: 800px;
-            margin: 0 auto;
+            width: 100%;
+        }
+        .column {
             padding: 20px;
+            flex: 1;
         }
-        .tanzschritt, .beschreibung {
-            border: 2px solid #ccc;
+        .left {
+            border-right: 1px solid #e0e0e0;
+        }
+        .draggable {
+            padding: 12px 20px;
+            margin: 10px 0;
+            background-color: #007aff;
+            color: white;
             border-radius: 8px;
-            padding: 10px;
-            margin: 10px;
-            width: calc(50% - 20px);
-            cursor: pointer;
+            cursor: grab;
+            touch-action: none; /* Prevent default touch actions */
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s;
         }
-        .connected {
-            background-color: lightgreen;
+        .draggable:active {
+            background-color: #005bb5;
+        }
+        .droppable {
+            min-height: 50px;
+            padding: 12px 20px;
+            margin: 10px 0;
+            background-color: #f5f5f7;
+            border: 2px dashed #e0e0e0;
+            border-radius: 8px;
+            transition: border-color 0.3s;
+        }
+        .droppable-hover {
+            border-color: #007aff;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <h1>Hip Hop Tanzschritte Rätsel</h1>
-    <div class="container">
-        <div id="Tanzschritte" class="tanzschritt-container">
-            <div id="Bounce" class="tanzschritt" draggable="true">Bounce Knees up (2x links, 2x rechts)</div>
-            <div id="Reebok" class="tanzschritt" draggable="true">Reebok (1x links, 1x rechts)</div>
-            <div id="Monestary" class="tanzschritt" draggable="true">Monestary (2x links, 2x rechts)</div>
-            <div id="Spongebob" class="tanzschritt" draggable="true">Spongebob Move (1x links, 1x rechts)</div>
-            <div id="Alf" class="tanzschritt" draggable="true">Alf (1x links, 1x rechts)</div>
-        </div>
-        <div id="Beschreibungen" class="beschreibung-container">
-            <div id="BounceDesc" class="beschreibung droppable" data-correct-tanzschritt="Bounce">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
-            <div id="ReebokDesc" class="beschreibung droppable" data-correct-tanzschritt="Reebok">Ein Schritt, bei dem mit beiden Beinen geschlossen zu einer Seite gesprungen wird. Der entgegengesetzte Arm haut ebenfalls in die Richtung. Das gleiche dann zur anderen Seite und dann doppelt in die erste Richtung. Erst dann ist der Move beendet.</div>
-            <div id="MonestaryDesc" class="beschreibung droppable" data-correct-tanzschritt="Monestary">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
-            <div id="SpongebobDesc" class="beschreibung droppable" data-correct-tanzschritt="Spongebob">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
-            <div id="AlfDesc" class="beschreibung droppable" data-correct-tanzschritt="Alf">Ein Schritt, bei dem die Beine geschlossen und gebeugt sind. Nun wird ein Bein nach außen angewinkelt und das andere gestreckt. Die Arme sind auch zunächst gebeugt und strecken sich dann nach unten in die Richtung, in die das angewinkelte Bein zeigt. Wichtig ist, dass die Füße den Boden nicht verlassen.</div>
-        </div>
+
+<h1>Station 5: Choreo lernen</h1>
+<p>Aufgabe: Ordnet die Beschreibungen von Tanzschritten den passenden Namen der Tanzschritte zu. Erstellt zusätzlich aus allen genannten Schritten eine kleine Choreo mit Videobeweis. Wenn ihr richtigliegt, erhaltet ihr einen Hinweis für die nächste Station.</p>
+
+<div class="container">
+    <div class="column left">
+        <div class="draggable" draggable="true" id="step1">Kick Ball Change (1x links, 1x rechts)</div>
+        <div class="draggable" draggable="true" id="step2">TLC Arms fast (1x links, 1x rechts)</div>
+        <div class="draggable" draggable="true" id="step3">Butterfly (2x links, 2x rechts)</div>
+        <div class="draggable" draggable="true" id="step4">Party Maschine (2x links, 2x rechts)</div>
+        <div class="draggable" draggable="true" id="step5">Bounce Knees up (2x links, 2x rechts)</div>
+        <div class="draggable" draggable="true" id="step6">Roger Rabbit (2x links, 2x rechts)</div>
+        <div class="draggable" draggable="true" id="step7">Reebok (1x links, 1x rechts)</div>
+        <div class="draggable" draggable="true" id="step8">Monestary (2x links, 2x rechts)</div>
+        <div class="draggable" draggable="true" id="step9">Spongebob Move (1x links, 1x rechts)</div>
+        <div class="draggable" draggable="true" id="step10">Alf (1x links, 1x rechts)</div>
     </div>
+    <div class="column right">
+        <div class="droppable" id="desc1">Ein Schritt, bei dem der Tänzer mit einem Fuß tritt, dann das Gewicht auf diesen Fuß verlagert (Ball), und schließlich das Gewicht wieder auf den anderen Fuß verlagert (Change).</div>
+        <div class="droppable" id="desc2">Ein Schritt, bei dem die Arme in einer schnellen Bewegung seitlich hoch und runter bewegt werden, wobei die Handflächen nach unten zeigen.</div>
+        <div class="droppable" id="desc3">Ein Schritt, bei dem die Arme seitlich ausgestreckt werden und die Hände in einer flatternden Bewegung nach oben und unten bewegt werden, ähnlich den Flügeln eines Schmetterlings.</div>
+        <div class="droppable" id="desc4">Ein Schritt, bei dem auf ein Bein gesprungen und das andere zur Seite gekickt wird. Passend dazu streckt sich der Arm, wo auch das Bein gekickt wird. Nach der einen Seite, folgt die andere Seite.</div>
+        <div class="droppable" id="desc5">Ein Schritt, bei dem die Knie abwechselnd angehoben und gesenkt werden, wobei der Oberkörper leicht nach vorne gelehnt ist und die Arme in einer lockeren Bewegung mitschwingen.</div>
+        <div class="droppable" id="desc6">Ein Schritt, bei dem der Tänzer kleine, schnelle Schritte nach vorne macht, wobei die Füße in einer hoppenden Bewegung den Boden berühren, ähnlich einem Hasen.</div>
+        <div class="droppable" id="desc7">Ein Schritt, bei dem mit beiden Beinen geschlossen zu einer Seite gesprungen wird. Der entgegengesetzte Arm haut ebenfalls in die Richtung. Das gleiche dann zur anderen Seite und dann doppelt in die erste Richtung. Erst dann ist der Move beendet.</div>
+        <div class="droppable" id="desc8">Ein Schritt, bei dem ein Fuß nach hinten absetzt und die Arme in einem Halbkreis über unten nach oben einrasten. Danach geht der andere Fuß nach hinten und es passiert das gleiche mit den Armen, nur in die andere Richtung.</div>
+        <div class="droppable" id="desc9">Ein Schritt, bei dem mit einem Bein zur Seite gesprungen wird und das andere Bein ausgestreckt wird. Dann mit dem gleichen Bein auf der Stelle springen und das ausgestreckte Bein kreuzt dahinter. Dann mit dem gekreuzten Bein zur anderen Seite springen und die Bewegung wiederholen.</div>
+        <div class="droppable" id="desc10">Ein Schritt, bei dem die Beine geschlossen und gebeugt sind. Nun wird ein Bein nach außen angewinkelt und das andere gestreckt. Die Arme sind auch zunächst gebeugt und strecken sich dann nach unten in die Richtung, in die das angewinkelte Bein zeigt. Wichtig ist, dass die Füße den Boden nicht verlassen.</div>
+    </div>
+</div>
 
-    <script>
-        var draggables = document.querySelectorAll('.tanzschritt');
-        var droppables = document.querySelectorAll('.droppable');
+<div class="hidden" id="message">
+    <p>Durch die Tore des Sportvereins, voller Leben und Tat, <br>
+    Ein Labyrinth aus Hallen und Spielfeldern, das uns lockt und anzieht. <br>
+    Wir schlendern vorbei an jubelnden Fans, die ihre Helden preisen, <br>
+    Und lauschen dem Rhythmus der Schritte, die auf den Böden kreisen. <br>
+    <br>
+    Der Duft von heißem Kaffee schwebt in der Luft, <br>
+    Lockt uns zu einer gemütlichen Sitzecke, wo die Zeit verweilt in sanfter Ruhe. <br>
+    Und in der gemütlichen Sitzecke, bei einem Schluck Kaffee in der Hand, <br>
+    Erinnern wir uns, dass der Wer das Ziel ist, das uns verband.</p>
+</div>
 
-        draggables.forEach(function(draggable) {
-            draggable.addEventListener('dragstart', function(event) {
-                event.dataTransfer.setData('text/plain', event.target.id);
-            });
+<script>
+    const draggables = document.querySelectorAll('.draggable');
+    const droppables = document.querySelectorAll('.droppable');
+    const message = document.getElementById('message');
+
+    draggables.forEach(draggable => {
+        // Mouse events
+        draggable.addEventListener('dragstart', () => {
+            draggable.classList.add('dragging');
         });
 
-        droppables.forEach(function(droppable) {
-            droppable.addEventListener('dragover', function(event) {
-                event.preventDefault();
-            });
-
-            droppable.addEventListener('drop', function(event) {
-                event.preventDefault();
-                var data = event.dataTransfer.getData('text');
-                var draggableElement = document.getElementById(data);
-                var droppableElement = this;
-
-                if (!droppableElement.children.length) {
-                    droppableElement.appendChild(draggableElement);
-                    if (droppableElement.dataset.correctTanzschritt === draggableElement.id) {
-                        draggableElement.classList.add('connected');
-                    }
-                }
-            });
-
-            droppable.addEventListener('dragenter', function(event) {
-                event.preventDefault();
-                var draggableElement = document.getElementById(event.dataTransfer.getData('text'));
-                var droppableElement = this;
-                if (droppableElement.dataset.correctTanzschritt !== draggableElement.id) {
-                    droppableElement.classList.add('highlight');
-                }
-            });
-
-            droppable.addEventListener('dragleave', function(event) {
-                var droppableElement = this;
-                droppableElement.classList.remove('highlight');
-            });
+        draggable.addEventListener('dragend', () => {
+            draggable.classList.remove('dragging');
+            checkCorrectness();
         });
 
-        document.addEventListener('dragend', function(event) {
-            var draggableElement = document.getElementById(event.dataTransfer.getData('text'));
-            var parentElement = draggableElement.parentNode;
-            if (parentElement.classList.contains('beschreibung-container')) {
-                document.getElementById('Tanzschritte').appendChild(draggableElement);
-                draggableElement.classList.remove('connected');
+        // Touch events
+        draggable.addEventListener('touchstart', (e) => {
+            draggable.classList.add('dragging');
+            e.preventDefault();
+        });
+
+        draggable.addEventListener('touchend', () => {
+            draggable.classList.remove('dragging');
+            checkCorrectness();
+        });
+
+        draggable.addEventListener('touchmove', (e) => {
+            const touchLocation = e.targetTouches[0];
+            draggable.style.position = 'absolute';
+            draggable.style.left = `${touchLocation.pageX - draggable.offsetWidth / 2}px`;
+            draggable.style.top = `${touchLocation.pageY - draggable.offsetHeight / 2}px`;
+
+            // Detect droppable
+            droppables.forEach(droppable => {
+                const droppableRect = droppable.getBoundingClientRect();
+                if (
+                    touchLocation.pageX > droppableRect.left &&
+                    touchLocation.pageX < droppableRect.right &&
+                    touchLocation.pageY > droppableRect.top &&
+                    touchLocation.pageY < droppableRect.bottom
+                ) {
+                    droppable.classList.add('droppable-hover');
+                } else {
+                    droppable.classList.remove('droppable-hover');
+                }
+            });
+        });
+    });
+
+    droppables.forEach(droppable => {
+        // Mouse events
+        droppable.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+
+        droppable.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const dragging = document.querySelector('.dragging');
+            if (!droppable.querySelector('.draggable')) {
+                droppable.appendChild(dragging);
             }
+            droppable.classList.remove('droppable-hover');
+            checkCorrectness();
         });
-    </script>
+
+        // Touch events
+        droppable.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+        });
+
+        droppable.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+        });
+
+        droppable.addEventListener('touchend', (e) => {
+            const dragging = document.querySelector('.dragging');
+            if (droppable.classList.contains('droppable-hover') && !droppable.querySelector('.draggable')) {
+                droppable.appendChild(dragging);
+                dragging.style.position = 'static';
+                dragging.style.left = 'auto';
+                dragging.style.top = 'auto';
+                droppable.classList.remove('droppable-hover');
+            }
+            checkCorrectness();
+        });
+    });
+
+    function checkCorrectness() {
+        const correctMappings = {
+            step1: 'desc1',
+            step2: 'desc2',
+            step3: 'desc3',
+            step4: 'desc4',
+            step5: 'desc5',
+            step6: 'desc6',
+            step7: 'desc7',
+            step8: 'desc8',
+            step9: 'desc9',
+            step10: 'desc10'
+        };
+
+        let correct = true;
+        for (const stepId in correctMappings) {
+            const step = document.getElementById(stepId);
+            const descId = correctMappings[stepId];
+            const desc = document.getElementById(descId);
+            if (!desc.contains(step)) {
+                correct = false;
+                break;
+            }
+        }
+
+        if (correct) {
+            document.querySelector('.container').classList.add('hidden');
+            message.classList.remove('hidden');
+        }
+    }
+</script>
+
 </body>
 </html>
